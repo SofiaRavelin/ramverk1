@@ -1,3 +1,3 @@
 #### Redovisa på GitHub
 
-Skriv något kort om ditt redovisa-repo och länka till [repot för me/redovisa på GitHub](XXX).
+Utvecklingen går att följa via [Github](https://github.com/SofiaRavelin/ramverk1).
