@@ -44,6 +44,11 @@ return [
             "title" => "IP validering",
         ],
         [
+            "text" => "Karta",
+            "url" => "geocheck",
+            "title" => "Geografisk Position",
+        ],
+        [
             "text" => "Styleväljare",
             "url" => "style",
             "title" => "Välj stylesheet.",
