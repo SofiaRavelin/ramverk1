@@ -9,14 +9,14 @@ namespace Anax\Model;
 class Geo
 {
 
-    public function getGeo($ipAdress) : array
+    //public function getGeo($ipAdress) : array
 
-{
-    $url = "http://api.ipstack.com/$ipAddress?access_key=65f8ad3d16f5c5edf327482a4a78396b";
-    $res = file_get_contents($url);
-    $geo = json_decode($res, true);
-    return $geo;
-}
+//{
+//    $url = "http://api.ipstack.com/$ipAddress?access_key=65f8ad3d16f5c5edf327482a4a78396b";
+//    $res = file_get_contents($url);
+//    $geo = json_decode($res, true);
+//    return $geo;
+//}
 
 //public function indexGeo($ipAdress) : array
 //{
@@ -35,24 +35,13 @@ class Geo
 //}
 /**
 
-  * This method takes one argument:
-
-  * A string that we are going to check if its a valid ip-adress.
-
-  * Returning an json with some information.
-
-  *
-
-  * @param string $value
-
   *
 
   * @return array
 
   */
 
-public function Nu($ipAddress) : array
-
+    public function geoInfo($ipAddress) : array
     {
         $url = "http://api.ipstack.com/$ipAddress?access_key=65f8ad3d16f5c5edf327482a4a78396b";
         $ch = curl_init();
@@ -64,10 +53,9 @@ public function Nu($ipAddress) : array
         //var_dump($ipAddress);
         //var_dump($res);
         //$domain = gethostbyaddr($ipAddress)
-        //$res['protocol'] = filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? "IPv4" : "IPv6";
+        $res['protocol'] = filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? "IPv4" : "IPv6";
         //$res['domain'] = $domain;
         //$res['isValid'] = filter_var($ipAddress, FILTER_VALIDATE_IP) ? true : false;
         return $res;
     }
-
 }
