@@ -11,6 +11,7 @@ namespace Anax\View;
 <div>
     <p>
         IP-address: <?= $ipAddress ?><br>
+        Protokoll: <?= $protocol ?><br>
         Latitud: <?= $latitude ?><br>
         Longitud: <?= $longitude ?><br>
         Land: <?= $country ?><br>
