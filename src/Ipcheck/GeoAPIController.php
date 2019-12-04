@@ -41,19 +41,8 @@ class GeoAPIController implements ContainerInjectableInterface
 
 
 /**
-
-     * This is the index method action, it handles:
-
-     * ANY METHOD mountpoint
-
-     * ANY METHOD mountpoint/
-
-     * ANY METHOD mountpoint/index
-
-     *
-
+     * This is the index method action.
      * @return array
-
      */
 
     public function indexActionPost() : array
@@ -61,19 +50,23 @@ class GeoAPIController implements ContainerInjectableInterface
         $title = "geoapicheck";
         $page = $this->di->get("page");
         $ipAddress = $this->di->get("request")->getPost("ipaddress");
-        //var_dump($ipAddress);
-        $geo = new Geo();
-        //var_dump($ipAddress);
-        $res = $geo->Nu($ipAddress);
+        $isValid = filter_var($ipAddress, FILTER_VALIDATE_IP) ? true : false;
+
+        if ($isValid) {
+            $geo = new Geo();
+            $res = $geo->geoInfo($ipAddress);
+        }
+
         $data = [
             //"content" => json_encode($res, JSON_PRETTY_PRINT)
-            "ipAddress" => $res["ip"],
-            "city" => $res["city"],
-            "country" => $res["country_name"],
-            "latitude" => $res["latitude"],
-            "longitude" => $res["longitude"],
+            "ipAddress" => $ipAddress,
+            "protocol" => $res["protocol"] ?? null,
+            "city" => $res["city"] ?? null,
+            "country" => $res["country_name"] ?? null,
+            "latitude" => $res["latitude"] ?? null,
+            "longitude" => $res["longitude"] ?? null,
         ];
 
-        return [$data];
+        return [$data, 200];
     }
 }
