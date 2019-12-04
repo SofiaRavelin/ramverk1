@@ -8,14 +8,14 @@ namespace Anax\View;
 <h4>Text-format</h4>
 <form method='post'>
         <label for="ipaddress">IP-address: </label>
-        <input type="text" name="ipaddress" placeholder="Ange IP-address">
+        <input type="text" name="ipaddress" value="<?= $ipAddress ?>">
         <input type="submit" value="Validera">
 </form>
 
 <h4>JSON-format</h4>
 <form method='post' action='./geoapicheck'>
         <label for="ipaddress">IP-address: </label>
-        <input type="text" name="ipaddress" placeholder="Ange IP-address">
+        <input type="text" name="ipaddress" value="<?= $ipAddress ?>">
         <input type="submit" value="Validera">
 </form>
 
