@@ -51,7 +51,7 @@ class GeoIPCheckController implements ContainerInjectableInterface
         $title = "geocheck";
         $page = $this->di->get("page");
 
-        $page->add("geocheck/main", []);
+        $page->add("geocheck/main", ["ipAddress" => $this->di->get("request")->getServer("REMOTE_ADDR")]);
         //"ipAddress" => $this->di->get("request")->getServer("REMOTE_ADDR")
         //value="<?= $ipAddress ?
 
@@ -72,17 +72,21 @@ class GeoIPCheckController implements ContainerInjectableInterface
         $title = "geocheck";
         $page = $this->di->get("page");
         $ipAddress = $this->di->get("request")->getPost("ipaddress");
-        //var_dump($ipAddress);
-        $geo = new Geo();
-        $res = $geo->Nu($ipAddress);
+        $isValid = filter_var($ipAddress, FILTER_VALIDATE_IP) ? true : false;
+
+        if ($isValid) {
+            $geo = new Geo();
+            $res = $geo->geoInfo($ipAddress);
+        }
 
         $data = [
             //"content" => json_encode($res, JSON_PRETTY_PRINT)
             "ipAddress" => $ipAddress,
-            "city" => $res["city"],
-            "country" => $res["country_name"],
-            "latitude" => $res["latitude"],
-            "longitude" => $res["longitude"],
+            "protocol" => $res["protocol"] ?? null,
+            "city" => $res["city"] ?? null,
+            "country" => $res["country_name"] ?? null,
+            "latitude" => $res["latitude"] ?? null,
+            "longitude" => $res["longitude"] ?? null,
         ];
 
         $page->add("geocheck/result", $data);
@@ -91,6 +95,4 @@ class GeoIPCheckController implements ContainerInjectableInterface
             "title" => $title,
         ]);
     }
-
-
 }
