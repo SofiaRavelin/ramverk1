@@ -13,7 +13,6 @@ class GeoAPIControllerTest extends TestCase
 
     // Create the di container.
     protected $di;
-    protected $controller;
 
         /**
      * Prepare before each test.
@@ -23,19 +22,18 @@ class GeoAPIControllerTest extends TestCase
         global $di;
         // Set di as global variable
         $this->di = new DIFactoryConfig();
-        $this->$di->loadServices(ANAX_INSTALL_PATH . "/config/di");
-
-        // Use different cache dir for unit test
-        $this->$di->get("cache")->setPath(ANAX_INSTALL_PATH . "/test/cache");
-
         // View helpers uses the global $di so it needs its value
         $di = $this->di;
+        $di->loadServices(ANAX_INSTALL_PATH . "/config/di");
+
+        // Use different cache dir for unit test
+        $di->get("cache")->setPath(ANAX_INSTALL_PATH . "/test/cache");
 
         // Setup controllerclass
         $this->controller = new GeoAPIController();
         $this->controller->setDI($this->di);
-        $this->controller->initialize();
-        //$di->set("request", "\Anax\Request\Request");
+        //$this->controller->initialize();
+        $di->set("request", "\Anax\Request\Request");
     }
 
     public function testIndexActionPost()
